@@ -7,12 +7,12 @@ module.exports = {
         const data = services.getBook(req,res);
         res.send(data);
     },
-    getAllResources: (req, res) => {
-        const data = services.getAllResources(req,res);
+    getAllResources: async (req, res) => {
+        const data = await services.getAllResources(req,res);
         res.send(data);
     },
-    createResource: (req, res) => {
-        const data = services.createResource(req,res);
+    createResource: async (req,res) => {
+        const data = await services.createResource(req.body);
         res.send(data); // 201 status code for resource creation
         
     },

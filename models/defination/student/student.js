@@ -1,21 +1,20 @@
 const dataTypes = require('sequelize');
 let sequelize = require("../../../common/dbconnection");    
-// const database = require('../../../common/dbconnection');
-const user = sequelize.define('user',{
-    
+const database = require('../../../common/dbconnection');
+const student = sequelize.define('student',{
     id:{
         primaryKey:true,
         autoIncrement:true,
         type:dataTypes.INTEGER,
 
     },
-    firstName:{
+    department:{
         allowNull:true,
         type:dataTypes.STRING,
     },
-    lastName:{
+    Semester:{
         allowNull:true,
-        type:dataTypes.STRING,
+        type:dataTypes.INTEGER,
     },
     email:{
         unique:true,
@@ -23,7 +22,7 @@ const user = sequelize.define('user',{
         type:dataTypes.STRING,
         validate:{isEmail:true},
     },
-    phoneNUmbers:{
+    rollNumber:{
         unique:true,
         allowNull:false,
         type:dataTypes.STRING
@@ -32,6 +31,6 @@ const user = sequelize.define('user',{
     timestamps:true,
     paranoid:true,
     sequelize,
-    modelName:"User"
+    modelName:"student"
 })
-module.exports= user;
+module.exports= student;

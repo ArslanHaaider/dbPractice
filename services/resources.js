@@ -1,41 +1,4 @@
-const randomBooks = [
-  {
-    id: 1,
-    title: 'The Great Gatsby',
-    author: 'F. Scott Fitzgerald',
-    pages: 180,
-  },
-  {
-    id: 2,
-    title: 'To Kill a Mockingbird',
-    author: 'Harper Lee',
-    pages: 281,
-  },
-  {
-    id: 3,
-    title: '1984',
-    author: 'George Orwell',
-    pages: 328,
-  },
-  {
-    id: 4,
-    title: 'Pride and Prejudice',
-    author: 'Jane Austen',
-    pages: 279,
-  },
-  {
-    id: 5,
-    title: 'The Catcher in the Rye',
-    author: 'J.D. Salinger',
-    pages: 224,
-  },
-  {
-    id: 6,
-    title: 'Moby-Dick',
-    author: 'Herman Melville',
-    pages: 625,
-  },
-];
+const {models} = require('../models/defination');
 const Joi = require('joi'); // Use Joi for validation
 
 // Define a schema for resource update
@@ -61,18 +24,21 @@ const createResourceSchema = Joi.object({
         const object = randomBooks.find(item => item.id === id);
         res.send(object);
     },
-    getAllResources: () => {
-      return randomBooks;
+    getAllResources: async (data) => {
+      const result = await models.user.findAll();;
+      return result;
     },
-    createResource: (req,res) => {
+    createResource: async(data) => {
       // Validate the incoming data against the schema
-      const { error, value } = createResourceSchema.validate(req.body);
-      if(error){
-        res.send("INvalid request body")
-      }else{
-        randomBooks.push(value);
-        res.send(randomBooks);
-      }
+      // const { error, value } = await createResourceSchema.validate(req.body);
+      const result = await models.user.create(data);
+      return result;
+      // if(error){
+      //   res.send("INvalid request body")
+      // }else{
+      //   randomBooks.push(value);
+      //   res.send(randomBooks);
+      // }
   },
   
   updateResource: (id,datas) => {
