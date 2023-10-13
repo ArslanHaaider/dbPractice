@@ -16,6 +16,11 @@ module.exports = {
         res.send(data); // 201 status code for resource creation
         
     },
+    createResourceHelp: async (studentData) => {
+        const data = await services.createResource(studentData);
+        return data // 201 status code for resource creation
+        
+    },
     updateResource: (req, res) => {
         const data = services.updateResource(req.params.id, req.body);
         res.send(data)

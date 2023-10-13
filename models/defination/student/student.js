@@ -6,7 +6,6 @@ const student = sequelize.define('student',{
         primaryKey:true,
         autoIncrement:true,
         type:dataTypes.INTEGER,
-
     },
     department:{
         allowNull:true,
@@ -15,12 +14,6 @@ const student = sequelize.define('student',{
     Semester:{
         allowNull:true,
         type:dataTypes.INTEGER,
-    },
-    email:{
-        unique:true,
-        allowNull:false,
-        type:dataTypes.STRING,
-        validate:{isEmail:true},
     },
     rollNumber:{
         unique:true,
