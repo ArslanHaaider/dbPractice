@@ -10,7 +10,8 @@ module.exports =  {
             console.log(data);
             if(teacher){
                 models.Student.update({experienceYears:data.experienceYears,Courses:data.Courses},{where:{id:teacherId}})
-                return await models.teacher.findOne({where:{id:teacherId }});
+                const teacher =await models.teacher.findOne({where:{id:teacherId }})
+                return teacher;
             }
         }catch(err){
             console.log("no such Id exist for it to modiyg")

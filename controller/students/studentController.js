@@ -42,14 +42,14 @@ module.exports = {
           
         //creating student instance
         const creatStudent = await studentService.createStudent({userID:creteUser.id,department:Student.department,Semester:Student.Semester,rollNumber:Student.rollNumber,Courses:courseAllowed});
-        //Now trying to update junction table
+        //Now trying to update student count
         for (const element of courseAllowedArray) {
           try {
             const course = await models.courses.findOne({ where: { coureName: element } });
         
             if (course) {
               // Create an enrollment for the student in the course
-              await models.enrollStudent.create({ courseId: course.id, StudentId: creatStudent.id });
+              // await models.enrollStudent.create({ courseId: course.id, StudentId: creatStudent.id });
         
               // Update the noOfStudents attribute for the course
               await models.courses.update(

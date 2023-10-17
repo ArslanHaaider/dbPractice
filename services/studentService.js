@@ -9,8 +9,9 @@ module.exports ={
             const Student =await models.Student.findOne({where:{id:studentId }})
             console.log(data);
             if(Student){
-                models.Student.update({department:data.department,Semester:data.Semester,rollNumber:data.rollNumber},{where:{id:studentId}})
-                return await models.Student.findOne({where:{id:studentId }});
+              await models.Student.update({department:data.department,Semester:data.Semester,rollNumber:data.rollNumber},{where:{id:studentId}})
+            const Student =await models.Student.findOne({where:{id:studentId }})
+            return Student;
             }
         }catch(err){
             console.log("no such Id exist for it to modiyg")

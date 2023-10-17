@@ -6,11 +6,13 @@ module.exports = {
     },
     updateCourse:async (courseId ,data) =>{
       try{
-          const teacher =await models.courses.findOne({where:{id:courseId }})
+          const course =await models.courses.findOne({where:{id:courseId }})
           console.log(data);
-          if(teacher){
+          if(course){
               models.Student.update({experienceYears:data.experienceYears,Courses:data.Courses},{where:{id:courseId}})
-              return await models.teacher.findOne({where:{id:courseId }});
+            const course =await models.courses.findOne({where:{id:courseId }})
+
+              return course;
           }
       }catch(err){
           console.log("no such Id exist for it to modiyg")
