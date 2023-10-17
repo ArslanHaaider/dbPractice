@@ -1,7 +1,7 @@
 const dataTypes = require('sequelize');
 let sequelize = require("../../../common/dbconnection");    
-const database = require('../../../common/dbconnection');
-const student = sequelize.define('student',{
+// const database = require('../../../common/dbconnection');
+const student = sequelize.define('Student',{
     id:{
         primaryKey:true,
         autoIncrement:true,
@@ -20,10 +20,13 @@ const student = sequelize.define('student',{
         allowNull:false,
         type:dataTypes.STRING
     },
+    Courses:{
+        allowNull:true,
+        type:dataTypes.STRING
+    }
 },{
     timestamps:true,
     paranoid:true,
     sequelize,
-    modelName:"student"
 })
 module.exports= student;
