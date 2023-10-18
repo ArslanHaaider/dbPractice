@@ -2,6 +2,7 @@ const userController = require('../users/users')
 const  {models} = require('../../models/defination/index');
 const studentService = require('../../services/studentService');
 const { where } = require('sequelize');
+const junction = require('../junctionController/junction');
 module.exports = {
     creatStudent:async (req,res) =>{
         const {firstName,lastName,email,phoneNUmbers, ...Student} = req.body
@@ -10,6 +11,7 @@ module.exports = {
         //Gonna check whether the course exist or not;
         let courseArray =  Student.Courses.split(",");
         let courseAllowedArray = []
+        let courseAllowedObject = [];
         console.log(courseArray);
         async function processCourses(courseArray) {
             let courseAllowed = "";
@@ -18,12 +20,15 @@ module.exports = {
               // console.log(element);
               try {
                 const course = await models.courses.findOne({ where: { coureName: element } });
-          
+                
+           
                 if (course) {
                   // console.log("Printing the course name if it exists");
                   // console.log(course.dataValues.coureName);
                   courseAllowedArray.push(course.dataValues.coureName);
+                  courseAllowedObject.push(course);
                   courseAllowed += course.dataValues.coureName + ",";
+                  
                   // console.log("Printing the allowed courses");
                   // console.log(courseAllowed);
                 } else {
@@ -36,20 +41,24 @@ module.exports = {
           
             return courseAllowed.slice(0, -1); // Remove the trailing comma
           }
-          
+          console.log(courseAllowedObject)
           // Call the function and use the result to create the student instance
           const courseAllowed = await processCourses(courseArray);
           
         //creating student instance
         const creatStudent = await studentService.createStudent({userID:creteUser.id,department:Student.department,Semester:Student.Semester,rollNumber:Student.rollNumber,Courses:courseAllowed});
+        ///UPdateing Junction
+        
+        for(const value of courseAllowedObject){
+          const updatee = await junction.studentCourse(creatStudent.id,value.id);
+          return updatee
+        }
         //Now trying to update student count
         for (const element of courseAllowedArray) {
           try {
             const course = await models.courses.findOne({ where: { coureName: element } });
         
             if (course) {
-              // Create an enrollment for the student in the course
-              // await models.enrollStudent.create({ courseId: course.id, StudentId: creatStudent.id });
         
               // Update the noOfStudents attribute for the course
               await models.courses.update(

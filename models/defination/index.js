@@ -12,6 +12,7 @@ student.belongsToMany(courses,{through:'enrollStudent',onUpdate:"CASCADE"});
 courses.belongsToMany(student,{through:'enrollStudent',onUpdate:"CASCADE"});
 teacher.belongsToMany(courses,{through:'enrollTeacher',onUpdate:"CASCADE"});
 courses.belongsToMany(teacher,{through:'enrollTeacher',onUpdate:"CASCADE"});
+
 const models =sequelize.models;
 console.log(models);
 const db = {};
