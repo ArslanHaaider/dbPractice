@@ -11,6 +11,7 @@ const database = require('./common/dbconnection');
 const students = require('./routes/students');
 const courses = require('./routes/courses')
 const teachers = require('./routes/teachers');
+const login = require('./routes/login');
 var app = express();
 
 // view engine setup
@@ -27,6 +28,7 @@ app.use('/users', users);
 app.use('/students',students);
 app.use('/courses',courses);
 app.use('/teacher',teachers)
+app.use('/login',login)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

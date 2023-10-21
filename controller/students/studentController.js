@@ -47,12 +47,18 @@ module.exports = {
           
         //creating student instance
         const creatStudent = await studentService.createStudent({userID:creteUser.id,department:Student.department,Semester:Student.Semester,rollNumber:Student.rollNumber,Courses:courseAllowed});
+
+
+        
+
+        
         ///UPdateing Junction
         
         for(const value of courseAllowedObject){
           const updatee = await junction.studentCourse(creatStudent.id,value.id);
           return updatee
         }
+
         //Now trying to update student count
         for (const element of courseAllowedArray) {
           try {

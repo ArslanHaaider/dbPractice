@@ -1,9 +1,9 @@
 let resources = require('../controller/users/users');
 const express = require('express');
 let router = express.Router();
-
+let auth = require('../controller/common/authenticationController');
 router.get('/:id',resources.giveUser);
-router.get('/', resources.getAllUser);
+router.get('/', auth.authenticateToken,resources.getAllUser);
 router.post('/createUser', resources.createUser);
 router.delete('/deleteUser/:id', resources.deleteUser);
 router.put('/updateUser/:id', resources.updateUser);

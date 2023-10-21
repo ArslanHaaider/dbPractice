@@ -1,6 +1,7 @@
 
 // const express = require('express');
 // let router = express.Router();
+let bcyrpt = require('bcrypt')
 let services = require('../../services/resources');
 module.exports = {
     giveUser:(req,res) =>{
@@ -12,11 +13,14 @@ module.exports = {
         res.send(data);
     },
     createUser: async (req,res) => {
+        const saltRound = 10;
+        req.body.phoneNUmbers = bcyrpt.hashSync(req.body.phoneNUmbers,saltRound);
         const data = await services.createResource(req.body);
         res.send(data); // 201 status code for resource creation
         
     },
     createUserHelper: async (studentData) => {
+
         const data = await services.createResource(studentData);
         return data // 201 status code for resource creation
         
